@@ -5,7 +5,16 @@ import Layout from './components/layout/Layout';
 import CropForm from './components/forms/CropForm';
 import YieldDashboard from './components/dashboard/YieldDashboard';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000/predict';
+const getApiUrl = () => {
+  const url = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000/predict';
+  // Ensure the URL ends with /predict if it doesn't already
+  if (url.includes('onrender.com') && !url.endsWith('/predict')) {
+    return url.endsWith('/') ? `${url}predict` : `${url}/predict`;
+  }
+  return url;
+};
+
+const API_URL = getApiUrl();
 
 export default function App() {
   const [formData, setFormData] = useState({

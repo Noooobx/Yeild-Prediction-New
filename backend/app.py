@@ -7,6 +7,16 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'message': 'Yield Prediction API is running',
+        'endpoints': {
+            'predict': '/predict',
+            'health': '/health'
+        }
+    }), 200
+
 # Load Model & Pipeline
 MODEL_PATH = 'models/crop_yield_xgb.pkl'
 
